@@ -8,6 +8,7 @@ interface LeafletMapContainerProps extends MapOptions {
   children: JSX.Element | JSX.Element[]
 }
 
+// The main wrapper component renders a Leaflet map using React-Leaflet's MapContainer.
 export const LeafletMapContainer = ({ children, ...props }: LeafletMapContainerProps) => {
   const { setMap, setLeafletLib } = useMapContext()
 

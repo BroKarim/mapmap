@@ -20,8 +20,10 @@ interface allMarkerPosValues {
 const useMarkerData = ({ locations, map, viewportWidth, viewportHeight }: useMapDataValues) => {
   const [allMarkersBoundCenter, setAllMarkersBoundCenter] = useState<allMarkerPosValues>({
     minZoom: AppConfig.minZoom - 5,
-    centerPos: AppConfig.baseCenter,
+    centerPos: AppConfig.baseCenter, // change map center or coordinate here
   })
+  console.log('Base Center:', AppConfig.baseCenter)
+  console.log('All Markers Bound Center:', allMarkersBoundCenter.centerPos)
   const { leafletLib } = useMapContext()
 
   // get bounds of all markers
@@ -57,14 +59,24 @@ const useMarkerData = ({ locations, map, viewportWidth, viewportHeight }: useMap
   // auto resize map to fit all markers on viewport change
   // it's crucial to set viewport size as dependecy to trigger the map resize
   useEffect(() => {
-    if (!allMarkerBounds || !map) return
-    if (!viewportWidth || !viewportHeight) return
+    if (!map) return
+    // if (!viewportWidth || !viewportHeight) return
 
     map.invalidateSize()
-    setAllMarkersBoundCenter({
-      minZoom: map.getBoundsZoom(allMarkerBounds),
-      centerPos: [allMarkerBounds.getCenter().lat, allMarkerBounds.getCenter().lng],
-    })
+    if (allMarkerBounds) {
+      setAllMarkersBoundCenter({
+        minZoom: map.getBoundsZoom(allMarkerBounds),
+        centerPos: [allMarkerBounds.getCenter().lat, allMarkerBounds.getCenter().lng],
+      })
+      map.fitBounds(allMarkerBounds)
+    } else {
+      // Jika tidak ada marker, gunakan koordinat default Aceh
+      setAllMarkersBoundCenter({
+        minZoom: AppConfig.minZoom,
+        centerPos: AppConfig.baseCenter, // Gunakan koordinat Aceh
+      })
+      map.setView(AppConfig.baseCenter as L.LatLngExpression, AppConfig.initialZoom)
+    }
   }, [allMarkerBounds, map, viewportWidth, viewportHeight])
 
   return { clustersByCategory, allMarkersBoundCenter }

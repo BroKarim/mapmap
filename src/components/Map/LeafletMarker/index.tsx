@@ -16,6 +16,9 @@ export interface CustomMarkerProps {
   place: PlaceValues
 }
 
+// ini function marker
+// This component displays individual markers on the map with custom icons and interactive popups.
+
 export const CustomMarker = ({ place }: CustomMarkerProps) => {
   const { map } = useMapContext()
   const markerCategory = useMemo(() => MarkerCategories[place.category], [place.category])

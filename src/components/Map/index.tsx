@@ -11,6 +11,8 @@ import LeafleftMapContextProvider from './LeafletMapContextProvider'
 import useMapContext from './useMapContext'
 import useMarkerData from './useMarkerData'
 
+// for client-side components or modules that need browser-specific objects like window or document
+// setting ssr: false helps avoid SSR-related errors.
 const LeafletCluster = dynamic(async () => (await import('./LeafletCluster')).LeafletCluster(), {
   ssr: false,
 })
@@ -61,7 +63,9 @@ const LeafletMapInner = () => {
 
   return (
     <div className="absolute h-full w-full overflow-hidden" ref={viewportRef}>
+      {/* map header */}
       <MapTopBar />
+      {/* map main */}
       <div
         className={`absolute left-0 w-full transition-opacity ${isLoading ? 'opacity-0' : 'opacity-1 '}`}
         style={{
@@ -79,12 +83,15 @@ const LeafletMapInner = () => {
           >
             {!isLoading ? (
               <>
+                {/* balik ke posisi awal  */}
                 <CenterToMarkerButton
                   center={allMarkersBoundCenter.centerPos}
                   zoom={allMarkersBoundCenter.minZoom}
                 />
+                {/* cari lokasi kita saaat ini  */}
                 <LocateButton />
-                {Object.values(clustersByCategory).map(item => (
+                {/* icon/marker for place desc */}
+                {/* {Object.values(clustersByCategory).map(item => (
                   <LeafletCluster
                     key={item.category}
                     icon={MarkerCategories[item.category as Category].icon}
@@ -95,7 +102,7 @@ const LeafletMapInner = () => {
                       <CustomMarker place={marker} key={marker.id} />
                     ))}
                   </LeafletCluster>
-                ))}
+                ))} */}
               </>
             ) : (
               // we have to spawn at least one element to keep it happy

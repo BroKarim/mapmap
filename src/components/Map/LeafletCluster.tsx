@@ -32,6 +32,9 @@ type MarkerClusterControl = Leaflet.MarkerClusterGroupOptions & {
   color: string
 } & ClusterEvents
 
+// ini yg ngatur icon, klo di zoom out bakal jadi satu
+// Used to cluster markers based on geographical proximity,
+// combining markers in the same area into a single cluster to enhance map readability.
 const CreateMarkerClusterGroup = (props: MarkerClusterControl, context: LeafletContextInterface) => {
   const markerClusterGroup = new Leaflet.MarkerClusterGroup({
     removeOutsideVisibleBounds: false,
