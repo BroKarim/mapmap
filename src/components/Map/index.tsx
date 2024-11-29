@@ -8,6 +8,8 @@ import MarkerCategories, { Category } from '#lib/MarkerCategories'
 import { Places } from '#lib/Places'
 
 import LeafleftMapContextProvider from './LeafletMapContextProvider'
+import { RegionSelect } from './ui/RegionSelect'
+import { SearchButton } from './ui/SearchButton'
 import useMapContext from './useMapContext'
 import useMarkerData from './useMarkerData'
 
@@ -90,6 +92,8 @@ const LeafletMapInner = () => {
                 />
                 {/* cari lokasi kita saaat ini  */}
                 <LocateButton />
+                <SearchButton />
+                <RegionSelect />
                 {/* icon/marker for place desc */}
                 {Object.values(clustersByCategory).map(item => (
                   <LeafletCluster
