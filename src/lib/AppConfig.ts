@@ -14,7 +14,8 @@ export const AppConfig = {
     topBarIconSize: 24,
   },
   // baseCenter: [52.02022592597971, 8.530780645829076] as LatLngExpression,
-  baseCenter: [95.3441523, 5.5536228] as LatLngExpression,
+  baseCenter: [5.5536228, 95.3441523] as LatLngExpression,
+  // baseCenter: [95.3441523, 5.5536228] as LatLngExpression,
 }
 
 export enum NavMenuVariant {

@@ -91,7 +91,7 @@ const LeafletMapInner = () => {
                 {/* cari lokasi kita saaat ini  */}
                 <LocateButton />
                 {/* icon/marker for place desc */}
-                {/* {Object.values(clustersByCategory).map(item => (
+                {Object.values(clustersByCategory).map(item => (
                   <LeafletCluster
                     key={item.category}
                     icon={MarkerCategories[item.category as Category].icon}
@@ -102,7 +102,7 @@ const LeafletMapInner = () => {
                       <CustomMarker place={marker} key={marker.id} />
                     ))}
                   </LeafletCluster>
-                ))} */}
+                ))}
               </>
             ) : (
               // we have to spawn at least one element to keep it happy
