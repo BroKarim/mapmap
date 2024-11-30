@@ -6,7 +6,7 @@ import NavMenu from '#components/common/NavMenu'
 import { AppConfig } from '#lib/AppConfig'
 
 const Home = () => (
-  <div className="container mx-auto max-w-2xl p-3 max-md:max-w-none">
+  <div className="container mx-auto max-w-2xl  p-3 max-md:max-w-none">
     <Head>
       <title>Jumpstart your new leaflet mapping Project with next.js and typescript 🤩</title>
       <meta

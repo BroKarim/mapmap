@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => (
       <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </Head>
-    <main className={`${catamaran.variable} font-sans text-base`}>
+    <main className={`${catamaran.variable} font-sans  text-base`}>
       <Component {...pageProps} />
     </main>
   </>

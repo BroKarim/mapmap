@@ -22,7 +22,7 @@ export const LeafletMapContainer = ({ children, ...props }: LeafletMapContainerP
   return (
     <MapContainer
       ref={e => setMap && setMap(e || undefined)}
-      className="absolute h-full w-full text-white outline-0"
+      className="absolute h-full w-full  text-white outline-0"
       {...props}
     >
       <TileLayer

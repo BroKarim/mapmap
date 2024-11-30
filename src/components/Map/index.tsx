@@ -18,6 +18,9 @@ import useMarkerData from './useMarkerData'
 const LeafletCluster = dynamic(async () => (await import('./LeafletCluster')).LeafletCluster(), {
   ssr: false,
 })
+// const RegionSelect = dynamic(async () => (await import('./ui/RegionSelect')).RegionSelect, {
+//   ssr: false,
+// })
 const CenterToMarkerButton = dynamic(async () => (await import('./ui/CenterButton')).CenterButton, {
   ssr: false,
 })
@@ -48,7 +51,7 @@ const LeafletMapInner = () => {
     viewportWidth,
     viewportHeight,
   })
-
+  console.log('LeafletMapInner context:', map)
   const isLoading = !map || !viewportWidth || !viewportHeight
 
   /** watch position & zoom of all markers */
@@ -64,59 +67,61 @@ const LeafletMapInner = () => {
   }, [allMarkersBoundCenter, map])
 
   return (
-    <div className="absolute h-full w-full overflow-hidden" ref={viewportRef}>
-      {/* map header */}
-      <MapTopBar />
-      {/* map main */}
-      <div
-        className={`absolute left-0 w-full transition-opacity ${isLoading ? 'opacity-0' : 'opacity-1 '}`}
-        style={{
-          top: AppConfig.ui.topBarHeight,
-          width: viewportWidth ?? '100%',
-          height: viewportHeight ? viewportHeight - AppConfig.ui.topBarHeight : '100%',
-        }}
-      >
-        {allMarkersBoundCenter && clustersByCategory && (
-          <LeafletMapContainer
-            center={allMarkersBoundCenter.centerPos}
-            zoom={allMarkersBoundCenter.minZoom}
-            maxZoom={AppConfig.maxZoom}
-            minZoom={AppConfig.minZoom}
-          >
-            {!isLoading ? (
-              <>
-                {/* balik ke posisi awal  */}
-                <CenterToMarkerButton
-                  center={allMarkersBoundCenter.centerPos}
-                  zoom={allMarkersBoundCenter.minZoom}
-                />
-                {/* cari lokasi kita saaat ini  */}
-                <LocateButton />
-                <SearchButton />
-                <RegionSelect />
-                {/* icon/marker for place desc */}
-                {Object.values(clustersByCategory).map(item => (
-                  <LeafletCluster
-                    key={item.category}
-                    icon={MarkerCategories[item.category as Category].icon}
-                    color={MarkerCategories[item.category as Category].color}
-                    chunkedLoading
-                  >
-                    {item.markers.map(marker => (
-                      <CustomMarker place={marker} key={marker.id} />
-                    ))}
-                  </LeafletCluster>
-                ))}
-              </>
-            ) : (
-              // we have to spawn at least one element to keep it happy
-              // eslint-disable-next-line react/jsx-no-useless-fragment
-              <></>
-            )}
-          </LeafletMapContainer>
-        )}
+    <>
+      <div className="bg-[#000] absolute  h-full w-full " ref={viewportRef}>
+        {/* map header */}
+        {/* <MapTopBar /> */}
+        {/* map main */}
+        <div
+          className={` absolute h-full left-0 transition-opacity ${isLoading ? 'opacity-0' : 'opacity-1 '}`}
+          style={{
+            top: AppConfig.ui.topBarHeight,
+            width: viewportWidth ?? '100%',
+            height: viewportHeight ? viewportHeight - AppConfig.ui.topBarHeight : '100%',
+          }}
+        >
+          {allMarkersBoundCenter && clustersByCategory && (
+            <LeafletMapContainer
+              center={allMarkersBoundCenter.centerPos}
+              zoom={allMarkersBoundCenter.minZoom}
+              maxZoom={AppConfig.maxZoom}
+              minZoom={AppConfig.minZoom}
+            >
+              {!isLoading ? (
+                <>
+                  {/* balik ke posisi awal  */}
+                  <CenterToMarkerButton
+                    center={allMarkersBoundCenter.centerPos}
+                    zoom={allMarkersBoundCenter.minZoom}
+                  />
+                  {/* cari lokasi kita saaat ini  */}
+                  <LocateButton />
+                  <SearchButton />
+                  <RegionSelect />
+                  {/* icon/marker for place desc */}
+                  {Object.values(clustersByCategory).map(item => (
+                    <LeafletCluster
+                      key={item.category}
+                      icon={MarkerCategories[item.category as Category].icon}
+                      color={MarkerCategories[item.category as Category].color}
+                      chunkedLoading
+                    >
+                      {item.markers.map(marker => (
+                        <CustomMarker place={marker} key={marker.id} />
+                      ))}
+                    </LeafletCluster>
+                  ))}
+                </>
+              ) : (
+                // we have to spawn at least one element to keep it happy
+                // eslint-disable-next-line react/jsx-no-useless-fragment
+                <></>
+              )}
+            </LeafletMapContainer>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
