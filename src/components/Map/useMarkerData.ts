@@ -6,7 +6,7 @@ import { AppConfig } from '#lib/AppConfig'
 import { PlacesClusterType, PlacesType } from '#lib/Places'
 
 interface useMapDataValues {
-  locations?: PlacesType
+  locations: PlacesType
   map?: Map
   viewportWidth?: number
   viewportHeight?: number
@@ -32,7 +32,9 @@ const useMarkerData = ({ locations, map, viewportWidth, viewportHeight }: useMap
 
     const coordsSum: LatLngExpression[] = []
     locations.forEach(item => {
-      coordsSum.push(item.position)
+      if (item.position) {
+        coordsSum.push(item.position) // Hanya tambahkan jika position tidak undefined
+      }
     })
     return leafletLib.latLngBounds(coordsSum)
   }, [leafletLib, locations])

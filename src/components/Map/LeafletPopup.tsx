@@ -30,7 +30,7 @@ const LeafletPopup = ({
   return (
     <Popup {...props}>
       <div
-        className="absolute bg-white shadow"
+        className="absolute bg-[#fff] shadow"
         style={{
           // todo: rework the offsets at some point
           marginLeft: `calc(-150px + ${AppConfig.ui.markerIconSize - 5}px)`,
