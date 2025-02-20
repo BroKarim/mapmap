@@ -22,13 +22,17 @@ export const LeafletMapContainer = ({ children, ...props }: LeafletMapContainerP
   return (
     <MapContainer
       ref={e => setMap && setMap(e || undefined)}
-      className="absolute h-full w-full  text-white outline-0"
+      className="text-white absolute h-full  w-full outline-0"
       {...props}
     >
       <TileLayer
+        attribution='© <a href="https://stadiamaps.com/">Stadia Maps</a>, © <a href="https://openmaptiles.org/">OpenMapTiles</a> © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+      />
+      {/* <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-      />
+      /> */}
       {children}
     </MapContainer>
   )
