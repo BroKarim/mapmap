@@ -61,6 +61,7 @@ const LeafletMapInner = () => {
     viewportWidth,
     viewportHeight,
   })
+
   console.log('LeafletMapInner context:', map)
   const isLoading = !map || !viewportWidth || !viewportHeight
 
