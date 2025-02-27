@@ -1,0 +1,9 @@
+id,no,nama,kampong,kecamatan,opd,tipe,koordinate,keterangan
+1,1,Pembangunan Balai Pengajian Al Abrar,Gp Keuramat,Kuta Alam,DisdikDayah,titik,"[[5.5703067,95.3289247]]",
+2,2,Pembangunan Gedung Ruang Kelas Belajar(RKB) Pesantren Tahfidz Al Quran Baitusshalihin Ulee Kareng,Gp. Ceurih,Ulee Kareng,DisdikDayah,titik,"[[5.5501503, 95.3567419]]",
+3,4,pembangunan Kanopi SDN 68 Banda Aceh,Lamgugob,Syiah Kuala,Disdik,titik,"[[5.566263, 95.3555372]]",
+4,8,Pembangunan MCK Siswa dan Guru di SDN 68 Banda Aceh,Lamgugob,Syiah Kuala,Disdik,titik,"[[5.5665073, 95.3555131]]",
+5,9,Pembangunan Ruang Kelas Baru SD Negeri 58 Kota Banda Aceh,Alue Naga,Syiah Kuala,Disdik,titik,"[[5.5965447, 95.3420202]]",
+6,71,Pembangunan Tangki Septik Individu Perkotaan minimal 50 KK Gp. Deah Baro Kec. Meuraxa (DAK),Deah Baro,Meuraxa,Dinas PUPR,titik,"[[5.5736817, 95.3503089],[5.5735842, 95.3502218],[5.5739042, 95.3499428]]","Deddy Anri,Asril,Mady Abdurrahman"
+7,73,Pembersihan Sedimen Saluran Drainase Jln. Chik Geupa Gp. Beurawe,Beurawe,Kuta Alam,Dinas PUPR,saluran,"[[5.5572625,95.3321252], [5.5572482,95.3348131]]",
+8,120,Peningkatan Jalan Tgk. Sulaiman Daud Gp. Peuniti Kec. Baiturrahman (DOKA),Peuniti,Baiturrahman,Dinas PUPR,jalan,"[[5.5460381,95.3236347],[5.5458755,95.3201716]]",

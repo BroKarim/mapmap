@@ -32,12 +32,12 @@ const MarkerCategories: MarkerCategoryType = {
     hideInMenu: false,
   },
   [Category.CAT1]: {
-    name: 'Category 1',
+    name: 'titik',
     icon: Leaf,
     color: colors.blue[400],
   },
   [Category.CAT2]: {
-    name: 'Category 2',
+    name: 'Garis',
     icon: PersonStanding,
     color: colors.red[400],
   },
