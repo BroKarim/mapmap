@@ -12,6 +12,7 @@ export interface PlaceValues {
   category: Category
   title: string
   address: string
+  image: string | null;
 }
 
 export interface LineValues {
@@ -30,7 +31,7 @@ export type PlacesType = PlaceValues[]
 export type PlacesClusterType = Record<string, PlaceValues[]>
 
 export const getPlaces = async (): Promise<PlacesType> => {
-  const response = await fetch(`${process.env.API_URL}/places`)
+  const response = await fetch('/api/places')
   const data = await response.json()
 
   const pointData : any = data.titik;
@@ -39,20 +40,21 @@ export const getPlaces = async (): Promise<PlacesType> => {
   const allData: any = [...pointData, ...lineData]
 
   const fixedData: PlacesType = allData.map((item: any) => {
-    const koordinate = item.koordinate[0]
+
     return {
       id: item.id,
       no: item.no,
       title: item.nama,
       address: `${item.kampong}, ${item.kecamatan}`,
       opd: item.opd,
-      category: item.tipe,
-      position: koordinate,
+      category: item.tipe === 'titik' ? 1 : 2,
+      position: item.koordinate,
       keterangan: item.keterangan,
+      image: item.gambar,
     }
   })
 
-  // console.log("fixed Data:", fixedData);
+  console.log("fixed Data:", fixedData);
   return fixedData
 }
 

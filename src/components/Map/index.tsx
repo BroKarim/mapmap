@@ -36,7 +36,19 @@ const LeafletMapContainer = dynamic(async () => (await import('./LeafletMapConta
 
 
 const LeafletMapInner = () => {
-  const [Places, setPlaces] = useState<any>();
+  const [Places, setPlaces] = useState<PlacesType>([
+    {
+      id: 0,
+      no: 0,
+      title: '',
+      address: '',
+      opd: '',
+      category: 1,
+      position: [0,0],
+      keterangan: '',
+      image: null
+    }
+  ]);
   useEffect(()=>{
     const fetchData = async() => {
       const data = await getPlaces();
@@ -67,8 +79,9 @@ const LeafletMapInner = () => {
 
   /** watch position & zoom of all markers */
   useEffect(() => {
-    console.log('map :', map);
+    console.log('map :', clustersByCategory);
     if (!allMarkersBoundCenter || !map) return
+
 
     const moveEnd = () => {
       map.off('moveend', moveEnd)
