@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import MapTopBar from '#components/TopBar'
 import { AppConfig } from '#lib/AppConfig'
 import MarkerCategories, { Category } from '#lib/MarkerCategories'
-import { Places } from '#lib/Places'
+import { getPlaces, PlacesType } from '#lib/Places'
 
 import LeafleftMapContextProvider from './LeafletMapContextProvider'
 import { RegionSelect } from './ui/RegionSelect'
@@ -34,7 +34,17 @@ const LeafletMapContainer = dynamic(async () => (await import('./LeafletMapConta
   ssr: false,
 })
 
+
 const LeafletMapInner = () => {
+  const [Places, setPlaces] = useState<any>();
+  useEffect(()=>{
+    const fetchData = async() => {
+      const data = await getPlaces();
+      setPlaces(data);
+    }
+
+    fetchData();
+  },[])
   const { map } = useMapContext()
   const {
     width: viewportWidth,
@@ -57,6 +67,7 @@ const LeafletMapInner = () => {
   /** watch position & zoom of all markers */
   console.log('map', map);
   useEffect(() => {
+    console.log('map :', map);
     if (!allMarkersBoundCenter || !map) return
 
     const moveEnd = () => {
