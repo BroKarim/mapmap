@@ -55,6 +55,7 @@ const LeafletMapInner = () => {
   const isLoading = !map || !viewportWidth || !viewportHeight
 
   /** watch position & zoom of all markers */
+  console.log('map', map);
   useEffect(() => {
     if (!allMarkersBoundCenter || !map) return
 
