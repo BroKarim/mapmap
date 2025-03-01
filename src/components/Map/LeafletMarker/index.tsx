@@ -45,53 +45,6 @@ export const CustomMarker = ({ place }: CustomMarkerProps) => {
     console.log('open location')
   }, [])
 
-
-  //for road
-  // if (place.category === Category.ROAD && place.startPosition && place.endPosition) {
-  //   return (
-  //     <FeatureGroup>
-  //       {/* Marker untuk titik awal */}
-  //       <ReactMarker
-  //         position={place.startPosition}
-  //         icon={LeafletDivIcon({
-  //           source: <MarkerIconWrapper 
-  //             color={markerCategory.color} 
-  //             icon={markerCategory.icon} 
-  //           />,
-  //           anchor: [AppConfig.ui.markerIconSize / 2, AppConfig.ui.markerIconSize / 2],
-  //         })}
-  //       >
-  //         tess
-  //       </ReactMarker>
-
-  //       {/* Marker untuk titik akhir */}
-  //       <ReactMarker
-  //         position={place.endPosition}
-  //         icon={LeafletDivIcon({
-  //           source: <MarkerIconWrapper 
-  //             color={markerCategory.color} 
-  //             icon={markerCategory.icon} 
-  //           />,
-  //           anchor: [AppConfig.ui.markerIconSize / 2, AppConfig.ui.markerIconSize / 2],
-  //         })}
-  //       >
-  //         tess
-  //       </ReactMarker>
-
-  //       {/* Polyline untuk menghubungkan kedua titik */}
-  //       <Polyline
-  //         positions={[place.startPosition, place.endPosition]}
-  //         color={markerCategory.color}
-  //         weight={4}
-  //         opacity={0.7}
-  //       >
-  //         tess
-  //       </Polyline>
-  //     </FeatureGroup>
-  //   )
-  // }
-
-
   return (
     <>
       <ReactMarker

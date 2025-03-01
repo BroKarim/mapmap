@@ -8,6 +8,7 @@ export interface MenuItem {
   title: string
   route?: string
   children?: MenuItem[]
+  onClick?: () => void
 }
 
 interface Props {
@@ -28,21 +29,25 @@ export default function Dropdown(props: Props) {
   return (
     <>
       <div className="relative">
-        <Button className="hover:text-blue-400" onClick={toggle}>
+        <Button className="hover:bg-black hover:text-white text-black bg-accent" onClick={toggle}>
           {item.title}
         </Button>
         <div
-          className={`bg-zinc-400 absolute top-16 z-30 flex min-h-[100px] w-[250px] flex-col rounded-md bg-[#fff] py-4 ${transClass}`}
+          className={`bg-zinc-400 absolute top-16 z-50 flex min-h-[100px] w-[250px] flex-col rounded-md bg-[#fff] py-4 ${transClass}`}
         >
-          {menuItems.map(item => (
-            <Link
-              key={item.route}
-              className="hover:bg-zinc-300 hover:text-zinc-500 px-4 py-1"
-              href={item?.route || ''}
-              onClick={toggle}
+          {menuItems.map((item, index) => (
+            <div
+              key={item.route || index}
+              className="hover:bg-zinc-300 hover:text-zinc-500 cursor-pointer px-4 py-1"
+              onClick={() => {
+                if (item.onClick) {
+                  item.onClick()
+                }
+                setTimeout(() => toggle(), 50)
+              }}
             >
               {item.title}
-            </Link>
+            </div>
           ))}
         </div>
       </div>

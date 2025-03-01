@@ -36,7 +36,7 @@ export const LocateButton = () => {
         className="button absolute top-16 right-3 rounded bg-white p-2 text-dark shadow-md"
         onClick={() => handleClick()}
       >
-        <LocateFixed size={AppConfig.ui.mapIconSize} />
+        <LocateFixed color='#ffff' size={AppConfig.ui.mapIconSize} />
       </button>
       {userPosition && (
         <CustomMarker

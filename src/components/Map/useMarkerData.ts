@@ -22,8 +22,7 @@ const useMarkerData = ({ locations, map, viewportWidth, viewportHeight }: useMap
     minZoom: AppConfig.minZoom - 5,
     centerPos: AppConfig.baseCenter, // change map center or coordinate here
   })
-  console.log('Base Center:', AppConfig.baseCenter)
-  console.log('All Markers Bound Center:', allMarkersBoundCenter.centerPos)
+
   const { leafletLib } = useMapContext()
 
   // get bounds of all markers

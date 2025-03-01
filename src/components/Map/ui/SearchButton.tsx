@@ -4,8 +4,10 @@ import { Check, Clock, MapPin, Search } from 'lucide-react'
 import * as React from 'react'
 
 import { Input } from '#components/ui/input'
-import { Places } from '#lib/Places'
+import { getPlaces, PlacesType } from '#lib/Places'
 import { cn } from '#lib/utils'
+
+import useMapContext from '../useMapContext'
 
 interface Location {
   id: string
@@ -48,13 +50,27 @@ const locations: Location[] = [
 ]
 
 export function SearchButton() {
-  const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState('')
+  const { map } = useMapContext()
   const [searchText, setSearchText] = React.useState('')
+  const [places, setPlaces] = React.useState<PlacesType>([])
 
-  const filteredLocations = locations.filter(location =>
-    location.name.toLowerCase().includes(searchText.toLowerCase()),
-  )
+  React.useEffect(() => {
+    const fetchPlaces = async () => {
+      const data = await getPlaces()
+      setPlaces(data)
+    }
+    fetchPlaces()
+  }, [])
+
+  const filteredPlaces = places.filter(place => place.title.toLowerCase().includes(searchText.toLowerCase()))
+
+  const handleSelectPlace = (place: any) => {
+    setSearchText('')
+    if (map) {
+      map.flyTo(place.position, 15) // Geser peta ke lokasi
+    }
+  }
+
   return (
     <>
       <Input
@@ -64,33 +80,26 @@ export function SearchButton() {
         onChange={event => {
           setSearchText(event.target.value)
         }}
-        className="text-black absolute top-10 left-3 h-10 w-64 justify-between bg-white"
+        className="text-black bg-white absolute top-10 left-3 h-10 w-64 justify-between"
       />
       {searchText && (
         <div
           style={{ zIndex: 400 }}
-          className="absolute top-28 left-3 z-50 w-96 rounded border bg-[#fff] shadow-md"
+          className="rounded absolute top-28 left-3 z-50 w-96 border bg-[#fff] shadow-md"
         >
-          {filteredLocations.length > 0 ? (
-            filteredLocations.map(location => (
+          {filteredPlaces.length > 0 ? (
+            filteredPlaces.map(place => (
               <div
-                key={location.id}
-                onClick={() => {
-                  setValue(location.name) // Set the input value to the selected location's name
-                  setSearchText('') // Clear the search text
-                }}
+                key={place.id}
+                onClick={() => handleSelectPlace(place)}
                 className="hover:bg-gray-100 flex cursor-pointer items-center gap-3 p-3"
               >
-                {location.type === 'recent' && <Clock className="h-4 w-4 shrink-0 opacity-50" />}
-                {location.type === 'place' && <MapPin className="h-4 w-4 shrink-0 opacity-50" />}
-                {location.type === 'atm' && <Search className="h-4 w-4 shrink-0 opacity-50" />}
+                <MapPin className="h-4 w-4 shrink-0 opacity-50" />
                 <div className="flex flex-col">
-                  <span>{location.name}</span>
-                  {location.address && <span className="text-gray-500 text-sm">{location.address}</span>}
+                  <span>{place.title}</span>
+                  <span className="text-gray-500 text-sm">{place.address}</span>
                 </div>
-                <Check
-                  className={cn('ml-auto h-4 w-4', value === location.name ? 'opacity-100' : 'opacity-0')}
-                />
+                <Check className="ml-auto h-4 w-4 opacity-100" />
               </div>
             ))
           ) : (

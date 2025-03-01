@@ -8,7 +8,7 @@ import MarkerCategories, { Category } from '#lib/MarkerCategories'
 import { getPlaces, PlacesType } from '#lib/Places'
 
 import LeafleftMapContextProvider from './LeafletMapContextProvider'
-import { RegionSelect } from './ui/RegionSelect'
+import { OpdSelect } from './ui/RegionSelect'
 import { SearchButton } from './ui/SearchButton'
 import useMapContext from './useMapContext'
 import useMarkerData from './useMarkerData'
@@ -34,17 +34,29 @@ const LeafletMapContainer = dynamic(async () => (await import('./LeafletMapConta
   ssr: false,
 })
 
-
 const LeafletMapInner = () => {
-  const [Places, setPlaces] = useState<any>();
-  useEffect(()=>{
-    const fetchData = async() => {
-      const data = await getPlaces();
-      setPlaces(data);
+  const [Places, setPlaces] = useState<PlacesType>([
+    {
+      id: 0,
+      no: 0,
+      title: '',
+      address: '',
+      opd: '',
+      category: 1,
+      position: [0, 0],
+      keterangan: '',
+      image: null,
+    },
+  ])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getPlaces()
+      setPlaces(data)
     }
 
-    fetchData();
-  },[])
+    fetchData()
+  }, [])
   const { map } = useMapContext()
   const {
     width: viewportWidth,
@@ -61,13 +73,14 @@ const LeafletMapInner = () => {
     viewportWidth,
     viewportHeight,
   })
+
   console.log('LeafletMapInner context:', map)
   const isLoading = !map || !viewportWidth || !viewportHeight
 
   /** watch position & zoom of all markers */
-  console.log('map', map);
+  console.log('map', map)
   useEffect(() => {
-    console.log('map :', map);
+    console.log('map :', clustersByCategory)
     if (!allMarkersBoundCenter || !map) return
 
     const moveEnd = () => {
@@ -78,14 +91,13 @@ const LeafletMapInner = () => {
     map.once('moveend', moveEnd)
   }, [allMarkersBoundCenter, map])
 
+  const [filteredMarkers, setFilteredMarkers] = useState<PlacesType>(Places)
+
   return (
     <>
-      <div className="bg-[#000] absolute  h-full w-full " ref={viewportRef}>
-        {/* map header */}
-        {/* <MapTopBar /> */}
-        {/* map main */}
+      <div className="absolute h-full  w-full bg-[#000] " ref={viewportRef}>
         <div
-          className={` absolute h-full left-0 transition-opacity ${isLoading ? 'opacity-0' : 'opacity-1 '}`}
+          className={` absolute left-0 h-full transition-opacity ${isLoading ? 'opacity-0' : 'opacity-1 '}`}
           style={{
             top: AppConfig.ui.topBarHeight,
             width: viewportWidth ?? '100%',
@@ -109,7 +121,7 @@ const LeafletMapInner = () => {
                   {/* cari lokasi kita saaat ini  */}
                   <LocateButton />
                   <SearchButton />
-                  <RegionSelect />
+                  <OpdSelect setFilteredMarkers={setFilteredMarkers} />
                   {/* icon/marker for place desc */}
                   {Object.values(clustersByCategory).map(item => (
                     <LeafletCluster
@@ -118,7 +130,7 @@ const LeafletMapInner = () => {
                       color={MarkerCategories[item.category as Category].color}
                       chunkedLoading
                     >
-                      {item.markers.map(marker => (
+                      {filteredMarkers.map(marker => (
                         <CustomMarker place={marker} key={marker.id} />
                       ))}
                     </LeafletCluster>
