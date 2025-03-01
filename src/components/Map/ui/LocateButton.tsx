@@ -33,19 +33,23 @@ export const LocateButton = () => {
       <button
         type="button"
         style={{ zIndex: 400 }}
-        className="button absolute top-16 right-3 rounded bg-white p-2 text-dark shadow-md"
+        className="button rounded bg-white text-dark absolute top-16 right-3 p-2 shadow-md"
         onClick={() => handleClick()}
       >
-        <LocateFixed color='#ffff' size={AppConfig.ui.mapIconSize} />
+        <LocateFixed color="#ffff" size={AppConfig.ui.mapIconSize} />
       </button>
       {userPosition && (
         <CustomMarker
           place={{
             id: 0,
+            no: 0,
             title: 'Your location',
             address: 'You are here',
-            position: userPosition,
+            opd: 'N/A', // Tidak relevan, jadi beri nilai default
             category: Category.LOCATE,
+            position: userPosition,
+            keterangan: 'User current location',
+            image: null,
           }}
         />
       )}
