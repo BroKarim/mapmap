@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector'
 
 import MapTopBar from '#components/TopBar'
@@ -42,6 +42,7 @@ const LeafletMapInner = () => {
       title: '',
       address: '',
       opd: '',
+      opdPelaksana: '',
       category: 1,
       position: [0, 0],
       keterangan: '',
@@ -49,12 +50,16 @@ const LeafletMapInner = () => {
     },
   ])
 
+  const hasFetched = useRef(false);
+
+
   useEffect(() => {
+    if(hasFetched.current) return;
     const fetchData = async () => {
       const data = await getPlaces()
       setPlaces(data)
+      hasFetched.current = true;
     }
-
     fetchData()
   }, [])
   const { map } = useMapContext()

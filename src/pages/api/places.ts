@@ -13,6 +13,7 @@ interface dataRawType  {
   kampong: string,
   kecamatan: string,
   opd: string,
+  opdPelaksana: string,
   tipe: string,
   koordinate: string,
   keterangan: string | null,
@@ -36,7 +37,7 @@ const DRIVE_ID = "1r9O1AC3kg72pupJCKlgdc4TNI97DVeW9"
 const getDriveImageURL = async (filename: string): Promise<string | null> => {
   try{
     const res = await driveService.files.list({
-      q: `name = '${filename}' and trashed = false and '${DRIVE_ID}' in parents`,
+      q: `name contains '${filename}' and trashed = false and '${DRIVE_ID}' in parents`,
       fields: 'files(id, name)',
       // driveId: DRIVE_ID,
       // corpora: 'drive',
@@ -49,7 +50,7 @@ const getDriveImageURL = async (filename: string): Promise<string | null> => {
     const file = res.data.files?.[0];
     if(!file) return null;
 
-    return `https://drive.google.com/uc?id=${file.id}`;
+    return `https://drive.google.com/thumbnail?id=${file.id}`;
   }catch(err){
     console.log('error : ', err)
     return null;
@@ -79,6 +80,7 @@ const getRows = async () => {
         kampong: row.get('kampong'),
         kecamatan: row.get('kecamatan'),
         opd: row.get('opd'),
+        opdPelaksana: row.get('opd pelaksana'),
         tipe: row.get('tipe'),
         koordinate: row.get('koordinate'),
         keterangan: row.get('keterangan'),
@@ -119,6 +121,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           kampong: item.kampong,
           kecamatan: item.kecamatan,
           opd: item.opd,
+          opdPelaksana: item.opdPelaksana,
           tipe: item.tipe,
           koordinate: [coordinate[0], coordinate[1]],
           keterangan: item.keterangan || null,
@@ -133,6 +136,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         kampong: item.kampong,
         kecamatan: item.kecamatan,
         opd: item.opd,
+        opdPelaksana: item.opdPelaksana,
         tipe: item.tipe,
         koordinate: [koor[0][0], koor[0][1]],
         keterangan: item.keterangan || null,
@@ -146,6 +150,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         kampong: item.kampong,
         kecamatan: item.kecamatan,
         opd: item.opd,
+        opdPelaksana: item.opdPelaksana,
         tipe: item.tipe,
         koordinate: [koor[0][0], koor[0][1]],
         keterangan: item.keterangan || null,

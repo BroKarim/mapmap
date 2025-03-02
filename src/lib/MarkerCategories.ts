@@ -1,4 +1,4 @@
-import { Leaf, LocateFixed, LucideProps, PersonStanding } from 'lucide-react';
+import { Leaf, LocateFixed, LucideProps, PersonStanding, MapPin } from 'lucide-react';
 import { FunctionComponent } from 'react';
 import colors from 'tailwindcss/colors';
 
@@ -27,23 +27,23 @@ type MarkerCategoryType = {
 const MarkerCategories: MarkerCategoryType = {
   [Category.LOCATE]: {
     name: 'User Location',
-    icon: LocateFixed,
+    icon: MapPin,
     color: colors.green[400],
     hideInMenu: false,
   },
   [Category.CAT1]: {
     name: 'titik',
-    icon: Leaf,
+    icon: MapPin,
     color: colors.blue[400],
   },
   [Category.CAT2]: {
     name: 'Garis',
-    icon: PersonStanding,
+    icon: MapPin,
     color: colors.red[400],
   },
   [Category.ROAD]: {
     name: 'Road',
-    icon: Leaf, // Ikon khusus untuk jalan
+    icon: MapPin, // Ikon khusus untuk jalan
     color: colors.orange[400],
     hideInMenu: true, // Opsional: Sembunyikan dari menu jika tidak diperlukan
   },

@@ -7,6 +7,7 @@ export interface PlaceValues {
   id: number
   no: number,
   opd: string ,
+  opdPelaksana: string,
   keterangan: string | null,
   position: LatLngExpression
   category: Category
@@ -31,7 +32,7 @@ export type PlacesType = PlaceValues[]
 export type PlacesClusterType = Record<string, PlaceValues[]>
 
 export const getPlaces = async (): Promise<PlacesType> => {
-  const response = await fetch('/api/places')
+  const response = await fetch('./api/places')
   const data = await response.json()
 
   const pointData : any = data.titik;
@@ -47,6 +48,7 @@ export const getPlaces = async (): Promise<PlacesType> => {
       title: item.nama,
       address: `${item.kampong}, ${item.kecamatan}`,
       opd: item.opd,
+      opdPelaksana: item.opdPelaksana,
       category: item.tipe === 'titik' ? 1 : 2,
       position: item.koordinate,
       keterangan: item.keterangan,

@@ -25,8 +25,8 @@ const LeafletPopup = ({
   item,
   ...props
 }: LeafletPopupProps) => {
-  const { title, address } = item
-
+  const { title, address, keterangan, opd, opdPelaksana, image } = item
+  console.log('dari popup ', image);
   return (
     <Popup {...props}>
       <div
@@ -39,6 +39,15 @@ const LeafletPopup = ({
           marginTop: -1,
         }}
       >
+        {image && (
+          <div className="w-full h-40 overflow-hidden">
+            <img
+              src={image}
+              alt={title}
+              className="w-full h-full object-cover rounded-t-xl"
+            />
+          </div>
+        )}
         <div className="flex flex-row justify-center pt-3" style={{ width: '300px' }}>
           <Button
             className="absolute right-3 top-3 inline-block text-dark"
@@ -51,21 +60,24 @@ const LeafletPopup = ({
             <MarkerIconWrapper color={color} icon={icon} />
           </div>
           <div
-            className="flex w-full flex-col justify-center p-3 pt-6 text-center"
+            className="flex text-left w-full flex-col justify-center p-3 pt-6"
             style={{ marginTop: AppConfig.ui.markerIconSize * 2 + 8 }}
           >
-            <h3 className="m-0 text-lg font-bold leading-none">{title}</h3>
-            <p className="m-0 text-secondary">{address}</p>
+            <h3 className="m-0 text-md font-bold leading-none" style={{ fontSize:'16px' }}>{title}</h3>
+            <p className="m-0 text-secondary pt-2" style={{ fontSize:'15px' }}>Lokasi: {address}</p>
+            <p className="m-0 pt-1 text-[8px]" style={{ fontSize:'12px' }}><div className="font-bold">Keterangan:</div> {keterangan}</p>
+            <p className="m-0 pt-1 text-[8px]" style={{ fontSize:'12px' }}>OPD: {opd}</p>
+            <p className="m-0 pt-1 text-[8px] flex gap-1" style={{ fontSize:'12px' }}>dilaksanakan oleh <div className="font-bold"> {opdPelaksana}</div></p>
             {/* todo: new component for button group */}
             <div className="mt-6 flex flex-row justify-between gap-2 p-2">
               <Button className="gap-2 bg-secondary text-white" onClick={() => handlePopupClose()} small>
                 <ChevronLeft size={AppConfig.ui.menuIconSize} />
                 Close
               </Button>
-              <Button className="gap-2 bg-primary text-white" onClick={() => handleOpenLocation()} small>
+              {/* <Button className="gap-2 bg-primary text-white" onClick={() => handleOpenLocation()} small>
                 Open
                 <ChevronRight size={AppConfig.ui.menuIconSize} />
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
