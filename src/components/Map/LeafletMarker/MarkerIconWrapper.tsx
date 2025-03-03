@@ -16,7 +16,7 @@ const MarkerIconWrapper = ({ icon, color, label }: MarkerIconWrapperProps) => {
     <div className="relative inline-flex p-0 rounded-full">
       {label && (
         <span className="absolute -inset-2 rounded-full opacity-40" style={{ backgroundColor: color }} />
-      )}
+      )}  
       <div
         className="relative inline-block rounded-full bg-primary p-2 text-white overflow-hidden"
         style={{ backgroundColor: color }}

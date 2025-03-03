@@ -72,27 +72,3 @@ export const CustomMarker = ({ place }: CustomMarkerProps) => {
   )
 }
 
-/*
-
-<ReactMarker
-      position={place.position}
-      icon={LeafletDivIcon({
-        source: <MarkerIconWrapper color={markerCategory.color} icon={markerCategory.icon} />,
-        anchor: [AppConfig.ui.markerIconSize / 2, AppConfig.ui.markerIconSize / 2],
-      })}
-      eventHandlers={{ click: handleMarkerClick }}
-      autoPan={false}
-      autoPanOnFocus={false}
-    >
-      <LeafletPopup
-        autoPan={false}
-        autoClose
-        closeButton={false}
-        item={place}
-        color={markerCategory.color}
-        icon={markerCategory.icon}
-        handleOpenLocation={handleOpenLocation}
-        handlePopupClose={handlePopupClose}
-      />
-    </ReactMarker>
-*/
