@@ -1,9 +1,11 @@
 import L from 'leaflet';
 import dynamic from 'next/dynamic';
 import React, { useCallback, useMemo } from 'react';
-import { FeatureGroup, MapContainer, Polyline, Marker as ReactMarker, TileLayer } from 'react-leaflet'
+import { FeatureGroup, MapContainer, Polyline, Marker as ReactMarker, TileLayer } from 'react-leaflet';
 
-import { AppConfig } from '#lib/AppConfig'
+
+
+import { AppConfig } from '#lib/AppConfig';
 import MarkerCategories from '#lib/MarkerCategories';
 import { PlaceValues } from '#lib/Places';
 
@@ -50,8 +52,13 @@ export const CustomMarker = ({ place }: CustomMarkerProps) => {
       <ReactMarker
         position={place.position || [0, 0]}
         icon={LeafletDivIcon({
-          source: <MarkerIconWrapper color={markerCategory.color} icon={markerCategory.icon} />,
-          anchor: [AppConfig.ui.markerIconSize / 2, AppConfig.ui.markerIconSize / 2],
+          source: (
+            <div className="w-48 gap-2 flex items-start justify-start">
+              <MarkerIconWrapper color={markerCategory.color} icon={markerCategory.icon} />
+              <span className="line-clamp-3  px-2 py-1 text-[10px] ">{place.title}</span>
+            </div>
+          ),
+          anchor: [AppConfig.ui.markerIconSize / 2, AppConfig.ui.markerIconSize],
         })}
         eventHandlers={{ click: handleMarkerClick }}
         autoPan={false}
@@ -71,4 +78,3 @@ export const CustomMarker = ({ place }: CustomMarkerProps) => {
     </>
   )
 }
-
