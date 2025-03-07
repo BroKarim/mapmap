@@ -1,7 +1,6 @@
-import L from 'leaflet';
 import dynamic from 'next/dynamic';
 import React, { useCallback, useMemo } from 'react';
-import { FeatureGroup, MapContainer, Polyline, Marker as ReactMarker, TileLayer } from 'react-leaflet';
+import {  Marker as ReactMarker } from 'react-leaflet';
 
 
 

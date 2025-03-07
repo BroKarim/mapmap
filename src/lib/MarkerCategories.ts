@@ -1,4 +1,4 @@
-import { Leaf, LocateFixed, LucideProps, PersonStanding, MapPin } from 'lucide-react';
+import {  Leaf, LocateFixed, LucideProps, MapPin } from 'lucide-react'
 import { FunctionComponent } from 'react';
 import colors from 'tailwindcss/colors';
 
@@ -7,10 +7,10 @@ import colors from 'tailwindcss/colors';
 
 
 export enum Category {
-  LOCATE = 0,
-  CAT1 = 1,
-  CAT2 = 2,
-  ROAD = 3,
+  LOCATE = 'locate',
+  MASJID = 'masjid',
+  RUMAH = 'rumah',
+  JALAN = 'jalan',
 }
 
 export interface MarkerCategoriesValues {
@@ -31,19 +31,21 @@ const MarkerCategories: MarkerCategoryType = {
     color: colors.green[400],
     hideInMenu: false,
   },
-  [Category.CAT1]: {
-    name: 'titik',
-    icon: MapPin,
-    color: colors.blue[400],
-  },
-  [Category.CAT2]: {
-    name: 'Garis',
-    icon: MapPin,
-    color: colors.red[400],
-  },
-  [Category.ROAD]: {
-    name: 'Road',
+  [Category.JALAN]: {
+    name: 'Jalan',
     icon: MapPin, // Ikon khusus untuk jalan
+    color: colors.orange[400],
+    hideInMenu: true, // Opsional: Sembunyikan dari menu jika tidak diperlukan
+  },
+  [Category.RUMAH]: {
+    name: 'Rumah',
+    icon: Leaf, // Ikon khusus untuk jalan
+    color: colors.orange[400],
+    hideInMenu: true, // Opsional: Sembunyikan dari menu jika tidak diperlukan
+  },
+  [Category.MASJID]: {
+    name: 'Masjid',
+    icon: Leaf, // Ikon khusus untuk jalan
     color: colors.orange[400],
     hideInMenu: true, // Opsional: Sembunyikan dari menu jika tidak diperlukan
   },

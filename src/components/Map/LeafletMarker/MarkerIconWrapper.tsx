@@ -9,7 +9,7 @@ export interface MarkerIconWrapperProps {
   label?: string
 }
 
-const MarkerIconWrapper = ({ icon, color, label }: MarkerIconWrapperProps) => {
+const MarkerIconWrapper = ({ icon }: MarkerIconWrapperProps) => {
   const IconFC = useMemo(() => icon ?? null, [icon])
 
   return (
